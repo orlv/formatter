@@ -78,13 +78,6 @@ export default [
   {
     rules: {
       curly: ['error'],
-      'padding-line-between-statements': [
-        'error',
-        { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
-        { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'] },
-        { blankLine: 'always', prev: 'block', next: '*' },
-        { blankLine: 'always', prev: 'block-like', next: '*' }
-      ],
       'one-var': ['error', 'never']
     }
   }
