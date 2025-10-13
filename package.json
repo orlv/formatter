@@ -1,7 +1,7 @@
 {
   "name": "@orlv/formatter",
   "description": "Prettier + ESLint rules",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "eslint.config.js",
   "type": "module",
   "scripts": {
