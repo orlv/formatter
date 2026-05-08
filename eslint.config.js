@@ -2,7 +2,7 @@ import pluginVue from 'eslint-plugin-vue'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import jsdoc from 'eslint-plugin-jsdoc'
 import globals from 'globals'
-import stylisticJs from '@stylistic/eslint-plugin-js'
+import stylistic from '@stylistic/eslint-plugin'
 import js from '@eslint/js'
 
 export default [
@@ -21,7 +21,7 @@ export default [
   ...pluginVue.configs['flat/recommended'],
   {
     plugins: {
-      '@stylistic/js': stylisticJs
+      '@stylistic': stylistic
     },
     rules: {
       'jsdoc/require-param-description': 0,
