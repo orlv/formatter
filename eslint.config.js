@@ -71,7 +71,8 @@ export default [
       'unicode-bom': ['error', 'never'],
       yoda: ['error', 'never'],
       'vue/no-deprecated-destroyed-lifecycle': 0, // vue 2
-      'object-shorthand': ['warn', 'properties']
+      'object-shorthand': ['warn', 'properties'],
+      'jsdoc/ts-no-empty-object-type': 0
     }
   },
   eslintPluginPrettierRecommended,
