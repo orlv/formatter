@@ -7,7 +7,7 @@ import js from '@eslint/js'
 
 export default [
   { ignores: ['dist', 'node_modules', 'tmp', 'temp'] },
-  { files: ['**/*.js', '**/*.cjs', '**/*.mjs', '**/*.vue'] },
+  { files: ['**/*.js', '**/*.cjs', '**/*.mjs', '**/*.ts', '**/*.vue'] },
   {
     languageOptions: {
       globals: {
