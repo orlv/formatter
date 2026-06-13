@@ -4,10 +4,11 @@ import jsdoc from 'eslint-plugin-jsdoc'
 import globals from 'globals'
 import stylistic from '@stylistic/eslint-plugin'
 import js from '@eslint/js'
+import tsEslint from 'typescript-eslint'
 
 export default [
   { ignores: ['dist', 'node_modules', 'tmp', 'temp'] },
-  { files: ['**/*.js', '**/*.cjs', '**/*.mjs', '**/*.ts', '**/*.vue'] },
+  { files: ['**/*.js', '**/*.cjs', '**/*.mjs', '**/*.ts', '**/*.mts', '**/*.cts', '**/*.vue'] },
   {
     languageOptions: {
       globals: {
@@ -80,6 +81,20 @@ export default [
     rules: {
       curly: ['error'],
       'one-var': ['error', 'never']
+    }
+  },
+  {
+    files: ['**/*.ts', '**/*.mts', '**/*.cts'],
+    languageOptions: {
+      parser: tsEslint.parser
+    },
+    plugins: {
+      '@typescript-eslint': tsEslint.plugin
+    },
+    rules: {
+      'no-undef': 0,
+      'no-unused-vars': 0,
+      'jsdoc/require-jsdoc': 0
     }
   }
 ]
