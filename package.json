@@ -3,6 +3,14 @@
   "description": "Prettier + ESLint rules",
   "version": "1.3.3",
   "main": "eslint.config.js",
+  "exports": {
+    ".": "./eslint.config.js"
+  },
+  "files": [
+    ".prettierrc",
+    "eslint.config.js",
+    "README.md"
+  ],
   "type": "module",
   "scripts": {
     "lint": "eslint --fix . && prettier . --write"
@@ -15,14 +23,12 @@
   "license": "MIT",
   "dependencies": {
     "@eslint/js": "^10.0.1",
-    "@stylistic/eslint-plugin": "^5.10.0",
-    "eslint": "10.3.0",
+    "eslint": "10.8.1",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-jsdoc": "^62.9.0",
-    "eslint-plugin-prettier": "^5.5.5",
-    "eslint-plugin-vue": "^10.9.1",
-    "globals": "^17.6.0",
-    "prettier": "^3.8.3",
-    "typescript-eslint": "^8.61.0"
+    "eslint-plugin-jsdoc": "^64.1.0",
+    "eslint-plugin-vue": "^10.10.0",
+    "globals": "^17.9.0",
+    "prettier": "^3.9.6",
+    "typescript-eslint": "^8.67.0"
   }
 }

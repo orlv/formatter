@@ -1,28 +1,26 @@
 import pluginVue from 'eslint-plugin-vue'
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import eslintConfigPrettier from 'eslint-config-prettier/flat'
 import jsdoc from 'eslint-plugin-jsdoc'
 import globals from 'globals'
-import stylistic from '@stylistic/eslint-plugin'
 import js from '@eslint/js'
+import { defineConfig } from 'eslint/config'
 import tsEslint from 'typescript-eslint'
 
-export default [
+export default defineConfig([
   { ignores: ['dist', 'node_modules', 'tmp', 'temp'] },
-  { files: ['**/*.js', '**/*.cjs', '**/*.mjs', '**/*.ts', '**/*.mts', '**/*.cts', '**/*.vue'] },
   {
+    files: ['**/*.{js,cjs,mjs,ts,mts,cts,vue}'],
+    extends: [
+      js.configs.recommended,
+      jsdoc.configs['flat/recommended'],
+      pluginVue.configs['flat/recommended'],
+      eslintConfigPrettier
+    ],
     languageOptions: {
       globals: {
         ...globals.browser,
         ...globals.node
       }
-    }
-  },
-  js.configs.recommended,
-  jsdoc.configs['flat/recommended'],
-  ...pluginVue.configs['flat/recommended'],
-  {
-    plugins: {
-      '@stylistic': stylistic
     },
     rules: {
       'jsdoc/require-param-description': 0,
@@ -73,18 +71,13 @@ export default [
       yoda: ['error', 'never'],
       'vue/no-deprecated-destroyed-lifecycle': 0, // vue 2
       'object-shorthand': ['warn', 'properties'],
-      'jsdoc/ts-no-empty-object-type': 0
-    }
-  },
-  eslintPluginPrettierRecommended,
-  {
-    rules: {
+      'jsdoc/ts-no-empty-object-type': 0,
       curly: ['error'],
       'one-var': ['error', 'never']
     }
   },
   {
-    files: ['**/*.ts', '**/*.mts', '**/*.cts'],
+    files: ['**/*.{ts,mts,cts}'],
     languageOptions: {
       parser: tsEslint.parser
     },
@@ -97,4 +90,4 @@ export default [
       'jsdoc/require-jsdoc': 0
     }
   }
-]
+])
