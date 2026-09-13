@@ -1,21 +1,41 @@
-import pluginVue from 'eslint-plugin-vue'
 import eslintConfigPrettier from 'eslint-config-prettier/flat'
 import jsdoc from 'eslint-plugin-jsdoc'
 import globals from 'globals'
 import js from '@eslint/js'
 import { defineConfig } from 'eslint/config'
 import tsEslint from 'typescript-eslint'
+import formatterPlugin from './plugin.ts'
+import type { Linter } from 'eslint'
 
-export default defineConfig([
+export const typescriptRules: Linter.RulesRecord = {
+  'no-undef': 'off',
+  'no-unused-vars': 'off',
+  '@typescript-eslint/no-unused-vars': [
+    'error',
+    { args: 'none', caughtErrors: 'none', ignoreRestSiblings: true, vars: 'all' }
+  ],
+  'no-unused-expressions': 'off',
+  '@typescript-eslint/no-unused-expressions': [
+    'error',
+    { allowShortCircuit: true, allowTernary: true, allowTaggedTemplates: true }
+  ],
+  'no-useless-constructor': 'off',
+  '@typescript-eslint/no-useless-constructor': 'error'
+}
+
+for (const rule in jsdoc.configs['flat/recommended'].rules) {
+  typescriptRules[rule] = 'off'
+}
+
+const config: Linter.Config[] = defineConfig([
   { ignores: ['dist', 'node_modules', 'tmp', 'temp'] },
   {
     files: ['**/*.{js,cjs,mjs,ts,mts,cts,vue}'],
-    extends: [
-      js.configs.recommended,
-      jsdoc.configs['flat/recommended'],
-      pluginVue.configs['flat/recommended'],
-      eslintConfigPrettier
-    ],
+    extends: [js.configs.recommended, jsdoc.configs['flat/recommended'], eslintConfigPrettier],
+    plugins: {
+      '@typescript-eslint': tsEslint.plugin,
+      formatter: formatterPlugin
+    },
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -30,10 +50,13 @@ export default defineConfig([
       'jsdoc/require-property-description': 0,
       'jsdoc/tag-lines': 0,
 
-      'vue/require-prop-types': 0,
-      'vue/multi-word-component-names': 0,
       'no-param-reassign': 'error',
+      'formatter/prefer-increment': 'error',
+      'formatter/padding-around-blocks': 'error',
       'no-var': 'error',
+      '@typescript-eslint/no-this-alias': 'error',
+      'prefer-rest-params': 'error',
+      'prefer-const': 'error',
       'no-lone-blocks': 'error',
       'no-return-assign': ['error', 'except-parens'],
       'no-self-compare': 'error',
@@ -69,7 +92,6 @@ export default defineConfig([
       'no-void': 'error',
       'unicode-bom': ['error', 'never'],
       yoda: ['error', 'never'],
-      'vue/no-deprecated-destroyed-lifecycle': 0, // vue 2
       'object-shorthand': ['warn', 'properties'],
       'jsdoc/ts-no-empty-object-type': 0,
       curly: ['error'],
@@ -78,16 +100,9 @@ export default defineConfig([
   },
   {
     files: ['**/*.{ts,mts,cts}'],
-    languageOptions: {
-      parser: tsEslint.parser
-    },
-    plugins: {
-      '@typescript-eslint': tsEslint.plugin
-    },
-    rules: {
-      'no-undef': 0,
-      'no-unused-vars': 0,
-      'jsdoc/require-jsdoc': 0
-    }
+    extends: [tsEslint.configs.recommended],
+    rules: typescriptRules
   }
 ])
+
+export default config

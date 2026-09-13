@@ -2,33 +2,56 @@
   "name": "@orlv/formatter",
   "description": "Prettier + ESLint rules",
   "version": "1.5.0",
-  "main": "eslint.config.js",
+  "main": "./dist/eslint.config.js",
   "exports": {
-    ".": "./eslint.config.js"
+    ".": {
+      "types": "./dist/eslint.config.d.ts",
+      "default": "./dist/eslint.config.js"
+    },
+    "./base": {
+      "types": "./dist/base.d.ts",
+      "default": "./dist/base.js"
+    },
+    "./vue": {
+      "types": "./dist/vue.d.ts",
+      "default": "./dist/vue.js"
+    }
   },
   "files": [
     ".prettierrc",
-    "eslint.config.js",
+    "dist/",
     "README.md"
   ],
   "type": "module",
   "scripts": {
-    "lint": "eslint --fix . && prettier . --write"
+    "build": "tsc && prettier dist --write --ignore-path .prettierignore",
+    "check": "tsc --noEmit",
+    "lint": "eslint --flag unstable_native_nodejs_ts_config --fix . && prettier . --write --ignore-path .gitignore && npm run build",
+    "test": "npm run build && node --test tests/*.test.js",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/orlv/formatter.git"
   },
+  "engines": {
+    "pnpm": ">=12.4.0"
+  },
   "author": "Oleg Orlov",
   "license": "MIT",
   "dependencies": {
     "@eslint/js": "^10.0.1",
-    "eslint": "10.7.0",
+    "eslint": "10.8.1",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-jsdoc": "^63.0.13",
-    "eslint-plugin-vue": "^10.9.2",
-    "globals": "^17.7.0",
-    "prettier": "^3.9.5",
-    "typescript-eslint": "^8.64.0"
+    "eslint-plugin-jsdoc": "^64.1.0",
+    "eslint-plugin-vue": "^10.10.0",
+    "globals": "^17.9.0",
+    "prettier": "^3.9.6",
+    "typescript-eslint": "^8.67.0",
+    "typescript": "npm:@typescript/typescript6@^6.0.2"
+  },
+  "types": "./dist/eslint.config.d.ts",
+  "devDependencies": {
+    "@typescript/native": "npm:typescript@^7.0.2"
   }
 }

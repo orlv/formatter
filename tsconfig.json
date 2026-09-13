@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "module": "NodeNext",
+    "target": "ESNext",
+    "declaration": true,
+    "exactOptionalPropertyTypes": true,
+    "noEmitOnError": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "dist",
+    "rewriteRelativeImportExtensions": true,
+    "rootDir": ".",
+    "strict": true,
+    "types": [],
+    "verbatimModuleSyntax": true
+  },
+  "include": ["*.ts"]
+}
